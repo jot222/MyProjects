@@ -1,0 +1,135 @@
+drop table brand_category;
+drop table type_category;
+drop table prod_type;
+drop table store_has;
+drop table cart_has;
+drop table brand_vendor;
+drop table prod_brand;
+drop table rewards_account;
+drop table cust_cart;
+drop table customer;
+drop table cart;
+drop table product;
+drop table store;
+drop table brand;
+drop table vendor;
+drop table specialized_type;
+drop table general_category;
+
+
+create table CUSTOMER(
+id int NOT NULL,
+first_name varchar(30),
+last_name varchar(30),
+address varchar(255),
+PRIMARY KEY(id)
+);
+
+create table rewards_account(
+id int NOT NULL,
+phone_num int,
+date_started varchar(10),
+foreign key(id) references customer(id)
+);
+
+create table cart(
+cart_id int NOT NULL,
+type varchar(10),
+payment_method varchar(12),
+primary key(cart_id)
+);
+
+create table cust_cart(
+customer_id int,
+cart_id int,
+foreign key(customer_id) references customer(id),
+foreign key(cart_id) references cart(cart_id)
+);
+
+create table product(
+product_id int NOT NULL,
+mame varchar(30),
+primary key(product_id)
+);
+
+create table cart_has(
+cart_id int,
+product_id int,
+price decimal(10,2),
+cart_quantity int,
+foreign key(cart_id) references cart(cart_id),
+foreign key(product_id) references product(product_id)
+);
+
+create table store(
+id int,
+location varchar(30),
+phone_number int,
+type varchar(10),
+primary key(id)
+);
+
+create table store_has(
+store_id int,
+product_id int,
+price decimal(10,2),
+quantity int,
+foreign key(store_id) references store(id),
+foreign key(product_id) references product(product_id)
+);
+
+create table brand(
+brand_name varchar(30),
+primary key(brand_name)
+);
+
+create table prod_brand(
+product_id int,
+brand varchar(30),
+foreign key(brand) references brand(brand_name),
+foreign key(product_id) references product(product_id)
+);
+
+create table vendor(
+vendor_name varchar(30),
+primary key(vendor_name)
+);
+
+create table brand_vendor(
+brand varchar(30),
+vendor varchar(30),
+foreign key(brand) references brand(brand_name),
+foreign key(vendor) references vendor(vendor_name)
+);
+
+create table specialized_type(
+type varchar(30),
+primary key(type)
+);
+
+
+create table prod_type(
+prod_id int,
+prod_type varchar(30),
+foreign key(prod_id) references product(product_id),
+foreign key(prod_type) references specialized_type(type)
+);
+
+create table general_category(
+category varchar(30),
+primary key(category)
+);
+
+create table brand_category(
+brand varchar(30),
+category varchar(30),
+foreign key(category) references general_category(category),
+foreign key(brand) references brand(brand_name)
+);
+
+create table type_category(
+prod_type varchar(30),
+category varchar(30),
+foreign key(category) references general_category(category),
+foreign key(prod_type) references specialized_type(type)
+);

@@ -1,0 +1,16 @@
+John Taulane
+jot222@lehigh.edu
+CSE 371 HW 1
+
+
+----------Survey Results-----------
+
+Mean Usefulness of Find Friends Feature: 3.66 out of 5
+Mean Usefulness of Get News Feature: 4.33 out of 5
+Mean Usefulness of Entire App: 4 out of 5
+
+Suggestions for new features
+	-Some sort of message friends feature
+	-A way to add individual friends or sort results of the find friends feature
+	-Add more locations than just Packard lab
+

@@ -1,0 +1,5 @@
+Windows
+To compile:
+    javac CreatePeople.java
+To run:
+    java -cp "./;./ojdbc8.jar" CreatePeople

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Bagwash Buddies - Home</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../stylesheets/home.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#dorm1">Cloudraker House</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#dorm2">Amaqjuaq Memorial Dormitory</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#dorm3">Foghorn Leghorn Lodge</a>
+                </li>
+            </ul>
+            <div class="navbar-nav ml-auto">
+                <span class="navbar-text" id="temp">Temp here for now</span>
+                <img src="https://www.weatherbit.io/static/img/icons/r01d.png" width="40" height="40" alt="" id="icon">
+                <button type="button" class="btn btn-primary" onclick="mainApp.logOut()">Log Out</button>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <br></br>
+
+    <!-- Tab panes -->
+
+    <div class="tab-content">
+        <div class="tab-pane container active" id="home" style="border-radius: 35px;">
+            <h1>Select a dorm to get started</h1>
+            <img src="../images/chickencc.jpeg" class="center" style="border-radius: 50%">
+        </div>
+        <!-- DORM 1-->
+        <div class="tab-pane container fade" id="dorm1" style="border-radius: 35px;">
+            <div>
+                <h1>Cloudraker House</h1>
+                <button id="adminAdd1" onclick="mainApp.addRowAdmin(1)">Add Machine</button>
+                <!--TODO: Make only visible to admins-->
+            </div>
+            <table class="table table-striped" id="dorm1machines">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Machine Number</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Time Remaining</th>
+                        <th scope="col">Claim</th>
+                        <th scope="col">Claimed By</th>
+                        <th scope="col" id="adminOptions1">Admin Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- DORM 2 -->
+        <div class="tab-pane container fade" id="dorm2" style="border-radius: 35px;">
+            <h1>Amaqjuaq Memorial Dormitory</h1>
+            <button id="adminAdd2" onclick="mainApp.addRowAdmin(2)">Add Machine</button>
+            <table class="table table-striped" id="dorm2machines">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Machine Number</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Time Remaining</th>
+                        <th scope="col">Claim</th>
+                        <th scope="col">Claimed By</th>
+                        <th scope="col" id="adminOptions2">Admin Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- DORM 3 -->
+        <div class="tab-pane container fade" id="dorm3" style="border-radius: 35px;">
+            <h1>Foghorn Leghorn Lodge</h1>
+            <button id="adminAdd3" onclick="mainApp.addRowAdmin(3)">Add Machine</button>
+            <table class="table table-striped" id="dorm3machines">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Machine Number</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Time Remaining</th>
+                        <th scope="col">Claim</th>
+                        <th scope="col">Claimed By</th>
+                        <th scope="col" id="adminOptions3">Admin Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Modal For AdminOptions -->
+    <div class="modal" id="optionsModal" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="vertical-alignment-helper">
+            <div class="model-dialog vertical-align-center modal-sm">
+                <!--Modal Content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="startModalTitle">ADMIN OPTIONS</h5>
+                    </div>
+                    <div class="modal-body">
+                        <h2>Admin Options</h2>
+                        <select id="selectDorm">
+                            <option selected disabled hidden>Select Dorm</option>
+                            <option value="1">Cloudraker House</option>
+                            <option value="2">Amaqjuaq Memorial Dormitory</option>
+                            <option value="3">Foghorn Leghorn Lodge</option>
+                        </select>
+                        <select id="selectService">
+                            <option selected disabled hidden>Select Status</option>
+                            <option value="true">In Service</option>
+                            <option value="false">Out of Service </option>
+                        </select>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button id="delButton" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+                        <button id="updateButton" type="button" class="btn btn-primary" data-dismiss="modal">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="../javascripts/firebase.js"></script>
+    <script src="../javascripts/home.js"></script>
+    <script>mainApp.getWeather()</script>
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+        </script>
+
+</body>
+
+</html>

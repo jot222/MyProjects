@@ -18,7 +18,7 @@ const Player = ({ accessToken, trackUri }) => {
             showSaveIcon
             callback={state => !state.isPlaying && setPlay(false)}
             play={play}
-            uris={trackUri ? trackUri : []} //TODO: What does this mean?
+            uris={trackUri ? trackUri : []}
             styles={{
                 activeColor: "#fff",
                 bgColor: "#333",

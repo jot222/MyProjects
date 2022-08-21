@@ -51,7 +51,6 @@ const Dashboard = ({ code }) => {
             }
             chooseTrack(trackInfo);
         })
-
     }
 
     useEffect(() => {
@@ -73,6 +72,7 @@ const Dashboard = ({ code }) => {
         if (!accessToken) return
         spotifyApi.setAccessToken(accessToken)
     }, [accessToken])
+
 
     useEffect(() => {
         if (!search) return setSearchResults([])
@@ -108,8 +108,8 @@ const Dashboard = ({ code }) => {
 
 
     return (
-        <DashBoardContainer>
 
+        <DashBoardContainer>
             <MenuContainer>
                 <ButtonContainer>
                     <MenuButton onClick={e => shuffleLiked()}>Shuffle Liked Songs</MenuButton>

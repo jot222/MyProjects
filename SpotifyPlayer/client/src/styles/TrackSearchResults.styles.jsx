@@ -5,6 +5,9 @@ export const ResultContainer = styled.div`
   align-items: center;
   margin: 2rem;
   cursor: pointer;
+  &:hover{
+    transform: scale(1.1);
+  }
 `
 
 export const ResultImage = styled.img`
